@@ -24,5 +24,7 @@ export const CARD_TYPES: CardType[] = [
     {symbol: 'K', name: "king", value: 13}
 ];
 
-export const JOKER = {cardType: {symbol: 'JK', name: 'joker', value: 14}, suit: {key: null, name: null}};
+export const JOKER: {cardType: CardType, suit: Suit} = {cardType:
+        {symbol: 'JK', name: 'joker', value: 14},
+        suit: {key: null, name: null}};
 

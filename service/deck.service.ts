@@ -13,7 +13,7 @@ export class DeckService {
         }
 
         for (let i = 0; i < numberOfDecks; i++) {
-            decks.concat(this.buildDeck(numJoker));
+            decks = decks.concat(this.buildDeck(numJoker));
         }
         return decks;
     }
@@ -30,7 +30,7 @@ export class DeckService {
             }
         }
 
-        for (let i = 0; i <= numJoker; i++) {
+        for (let i = 0; i < numJoker; i++) {
             deck.push(new Card(JOKER.suit, JOKER.cardType))
         }
 
