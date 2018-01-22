@@ -1,11 +1,8 @@
 {
   "name": "hearts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fexible playing cards API written in TypeScript.",
   "main": "dist/hearts.js",
-  "dependencies": {
-    "card-deck": "^1.0.1"
-  },
   "devDependencies": {
     "lite-server": "^2.3.0",
     "ts-loader": "^3.2.0",
