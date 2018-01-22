@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Cards javascript api",
   "main": "hearts.js",
-  "dependencies": {},
+  "dependencies": {
+    "card-deck": "^1.0.0"
+  },
   "devDependencies": {
     "lite-server": "^2.3.0",
     "ts-loader": "^3.2.0",
