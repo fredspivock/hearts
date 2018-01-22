@@ -1,10 +1,10 @@
 {
   "name": "hearts",
   "version": "1.0.0",
-  "description": "Cards javascript api",
-  "main": "hearts.js",
+  "description": "A fexible playing cards API written in TypeScript.",
+  "main": "dist/hearts.js",
   "dependencies": {
-    "card-deck": "^1.0.0"
+    "card-deck": "^1.0.1"
   },
   "devDependencies": {
     "lite-server": "^2.3.0",
@@ -14,14 +14,13 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "lite-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "lite-server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fredspivock/hearts.git"
   },
-  "author": "",
+  "author": "Frederick Spivock",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/fredspivock/hearts/issues"
