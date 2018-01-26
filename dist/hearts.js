@@ -69,34 +69,25 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Deck", function() { return Deck; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_card__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__ = __webpack_require__(2);
 
 
-var Deck = /** @class */ (function () {
-    function Deck(numberOfDecks, numOfJokers) {
-        if (numberOfDecks === void 0) { numberOfDecks = 1; }
-        if (numOfJokers === void 0) { numOfJokers = 0; }
+class Deck {
+    constructor(numberOfDecks = 1, numOfJokers = 0) {
         this.decks = this.createDecks(numberOfDecks, numOfJokers);
         this.shuffle();
     }
-    Object.defineProperty(Deck.prototype, "cards", {
-        get: function () {
-            return this.decks;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Deck.prototype.draw = function (numberOfCards, from) {
-        if (numberOfCards === void 0) { numberOfCards = 1; }
-        if (from === void 0) { from = 'top'; }
+    get cards() {
+        return this.decks;
+    }
+    draw(numberOfCards = 1, from = 'top') {
         if (numberOfCards < 1 || numberOfCards > this.decks.length) {
             console.error();
             return;
         }
-        var cards = [];
-        for (var i = 0; i < numberOfCards; i++) {
+        let cards = [];
+        for (let i = 0; i < numberOfCards; i++) {
             if (from === 'top') {
                 cards.push(this.decks.pop());
             }
@@ -104,23 +95,21 @@ var Deck = /** @class */ (function () {
                 cards.push(this.decks.shift());
             }
             else {
-                var randomCardIndex = Math.floor(Math.random() * this.decks.length);
+                let randomCardIndex = Math.floor(Math.random() * this.decks.length);
                 cards.push(this.decks.splice(randomCardIndex, 1)[0]);
             }
         }
         return cards;
-    };
+    }
     //Look at cards
-    Deck.prototype.inspect = function (numberOfCards, from) {
-        if (numberOfCards === void 0) { numberOfCards = 1; }
-        if (from === void 0) { from = 'top'; }
+    inspect(numberOfCards = 1, from = 'top') {
         if (numberOfCards < 1 || numberOfCards > this.decks.length) {
             console.error();
             return;
         }
-        var cards = [];
-        var copyOfDeck = this.decks.slice();
-        for (var i = 0; i < numberOfCards; i++) {
+        let cards = [];
+        let copyOfDeck = [...this.decks];
+        for (let i = 0; i < numberOfCards; i++) {
             if (from === 'top') {
                 cards.push(this.decks[i]);
             }
@@ -128,51 +117,46 @@ var Deck = /** @class */ (function () {
                 cards.push(this.decks[this.decks.length - 1]);
             }
             else {
-                var randomCardIndex = Math.floor(Math.random() * this.decks.length);
+                let randomCardIndex = Math.floor(Math.random() * this.decks.length);
                 cards.push(copyOfDeck.splice(randomCardIndex, 1)[0]);
             }
         }
         return cards;
-    };
-    Deck.prototype.createDecks = function (numberOfDecks, numJoker) {
-        if (numberOfDecks === void 0) { numberOfDecks = 1; }
-        if (numJoker === void 0) { numJoker = 0; }
-        var decks = [];
+    }
+    createDecks(numberOfDecks = 1, numJoker = 0) {
+        let decks = [];
         if (numberOfDecks < 1 || numberOfDecks > 100) {
             console.error();
             return;
         }
-        for (var i = 0; i < numberOfDecks; i++) {
+        for (let i = 0; i < numberOfDecks; i++) {
             decks = decks.concat(this.buildDeck(numJoker));
         }
         return decks;
-    };
-    Deck.prototype.shuffle = function () {
-        var copy = [], index;
+    }
+    shuffle() {
+        let copy = [], index;
         while (this.decks.length > 0) {
             index = Math.floor(Math.random() * this.decks.length);
             copy.push(this.decks.splice(index, 1)[0]);
         }
-        (_a = this.decks).push.apply(_a, copy);
+        this.decks.push(...copy);
         return this.decks;
-        var _a;
-    };
-    Deck.prototype.buildDeck = function (numJoker) {
-        var deck = [];
-        for (var _i = 0, SUITS_1 = __WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__["c" /* SUITS */]; _i < SUITS_1.length; _i++) {
-            var suit = SUITS_1[_i];
-            for (var _a = 0, CARD_TYPES_1 = __WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__["a" /* CARD_TYPES */]; _a < CARD_TYPES_1.length; _a++) {
-                var cardType = CARD_TYPES_1[_a];
+    }
+    buildDeck(numJoker) {
+        let deck = [];
+        for (let suit of __WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__["c" /* SUITS */]) {
+            for (let cardType of __WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__["a" /* CARD_TYPES */]) {
                 deck.push(new __WEBPACK_IMPORTED_MODULE_0__card_card__["a" /* Card */](suit, cardType));
             }
         }
-        for (var i = 0; i < numJoker; i++) {
+        for (let i = 0; i < numJoker; i++) {
             deck.push(new __WEBPACK_IMPORTED_MODULE_0__card_card__["a" /* Card */](__WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__["b" /* JOKER */].suit, __WEBPACK_IMPORTED_MODULE_1__constant_deck_constant__["b" /* JOKER */].cardType));
         }
         return deck;
-    };
-    return Deck;
-}());
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["Deck"] = Deck;
 
 
 
@@ -181,80 +165,43 @@ var Deck = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Card; });
-var Card = /** @class */ (function () {
-    function Card(suit, cardType) {
+class Card {
+    constructor(suit, cardType) {
         this.cardSuit = suit;
         this.cardType = cardType;
     }
-    Object.defineProperty(Card.prototype, "suit", {
-        //suit getters
-        get: function () {
-            return this.cardSuit;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "suitName", {
-        get: function () {
-            return this.cardSuit.name;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "suitKey", {
-        get: function () {
-            return this.cardSuit.key;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "type", {
-        //cardType getters
-        get: function () {
-            return this.cardType;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "cardTypeName", {
-        get: function () {
-            return this.cardType.name;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "typeValue", {
-        get: function () {
-            return this.cardType.value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "typeSymbol", {
-        get: function () {
-            return this.cardType.symbol;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "face", {
-        //get combined card info
-        get: function () {
-            return this.cardType.symbol + this.cardSuit.key;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Card.prototype, "cardString", {
-        get: function () {
-            return this.cardType.name + ' of ' + this.cardSuit.name + 's';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Card;
-}());
+    //suit getters
+    get suit() {
+        return this.cardSuit;
+    }
+    get suitName() {
+        return this.cardSuit.name;
+    }
+    get suitKey() {
+        return this.cardSuit.key;
+    }
+    //cardType getters
+    get type() {
+        return this.cardType;
+    }
+    get cardTypeName() {
+        return this.cardType.name;
+    }
+    get typeValue() {
+        return this.cardType.value;
+    }
+    get typeSymbol() {
+        return this.cardType.symbol;
+    }
+    //get combined card info
+    get face() {
+        return this.cardType.symbol + this.cardSuit.key;
+    }
+    get cardString() {
+        return this.cardType.name + ' of ' + this.cardSuit.name + 's';
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Card;
 
 
 
@@ -263,16 +210,15 @@ var Card = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SUITS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CARD_TYPES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return JOKER; });
-var SUITS = [
+const SUITS = [
     { key: 'd', name: 'diamond' },
     { key: 's', name: 'spade' },
     { key: 'h', name: 'heart' },
     { key: 'c', name: 'club' }
 ];
-var CARD_TYPES = [
+/* harmony export (immutable) */ __webpack_exports__["c"] = SUITS;
+
+const CARD_TYPES = [
     { symbol: 'A', name: "ace", value: 1 },
     { symbol: '2', name: "two", value: 2 },
     { symbol: '3', name: "three", value: 3 },
@@ -287,8 +233,12 @@ var CARD_TYPES = [
     { symbol: 'Q', name: "queen", value: 12 },
     { symbol: 'K', name: "king", value: 13 }
 ];
-var JOKER = { cardType: { symbol: 'JK', name: 'joker', value: 14 },
+/* harmony export (immutable) */ __webpack_exports__["a"] = CARD_TYPES;
+
+const JOKER = { cardType: { symbol: 'JK', name: 'joker', value: 14 },
     suit: { key: null, name: null } };
+/* harmony export (immutable) */ __webpack_exports__["b"] = JOKER;
+
 
 
 /***/ })
